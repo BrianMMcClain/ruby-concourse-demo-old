@@ -3,3 +3,4 @@ applications:
 - name: ruby-demo
   memory: 512M
   instances: 2
+  path: .
