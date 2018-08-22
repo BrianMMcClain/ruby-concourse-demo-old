@@ -1,0 +1,26 @@
+resources:
+- name: ruby-demo-app
+  type: git
+  source:
+    uri: https://github.com/BrianMMcClain/ruby-concourse-demo.git
+    branch: master
+- name: app-deploy
+  type: cf
+  source:
+    api: {{cf-api}}
+    username: {{cf-username}}
+    password: {{cf-password}}
+    organization: {{cf-org}}
+    space: {{cf-space}}
+    skip_cert_check: true
+
+jobs:
+- name: build
+  plan:
+  - get: ruby-demo-app
+    trigger: true
+  - task: run-bundler
+    file: ruby-demo-app/ci/build.yml
+  - put: app-deploy
+    params:
+      manifest: ./ruby-demo-app/manifest.yml

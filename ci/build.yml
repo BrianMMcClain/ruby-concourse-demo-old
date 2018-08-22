@@ -1,0 +1,11 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: ruby, tag: 2.4.4}
+
+inputs:
+- name: ruby-demo-app
+
+run:
+  path: ./ruby-demo-app/ci/build.sh
